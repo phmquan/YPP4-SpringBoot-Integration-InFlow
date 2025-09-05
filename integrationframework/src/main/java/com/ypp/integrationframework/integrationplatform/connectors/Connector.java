@@ -7,7 +7,7 @@ import com.ypp.integrationframework.integrationplatform.core.EventType;
 public interface Connector {
     String getName(); // "salesforce", "zapier", "webhook"
 
-    boolean supports(EventType type);
+    boolean getSupportEvents(EventType type);
 
     /**
      * push data to external system (async allowed)
