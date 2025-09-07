@@ -1,5 +1,6 @@
 package com.ypp.integrationframework.integrationplatform.connectors;
 
+
 import com.ypp.integrationframework.integrationplatform.core.ConnectorRequest;
 import com.ypp.integrationframework.integrationplatform.core.ConnectorResult;
 import com.ypp.integrationframework.integrationplatform.core.EventType;
@@ -20,4 +21,5 @@ public interface Connector {
     default ConnectorResult pull(ConnectorRequest request) {
         throw new UnsupportedOperationException("pull not supported");
     }
+    ConnectorResult testConnection(ConnectorRequest request);
 }
