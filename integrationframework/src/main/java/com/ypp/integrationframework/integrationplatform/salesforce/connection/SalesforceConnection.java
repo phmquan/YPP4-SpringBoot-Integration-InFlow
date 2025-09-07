@@ -21,6 +21,9 @@ public class SalesforceConnection implements IntegrationConnection {
     private String accessToken;
     private String instanceUrl;
 
+    /***
+     * connect to salesforce with OAuth 2.0 through connected app
+     */
     @Override
     public boolean connect() {
         try {
