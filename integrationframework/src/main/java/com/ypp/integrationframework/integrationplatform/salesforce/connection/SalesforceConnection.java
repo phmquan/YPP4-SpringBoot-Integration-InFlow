@@ -39,7 +39,7 @@ public class SalesforceConnection implements IntegrationConnection {
                     authUrl,
                     HttpMethod.POST,
                     request,
-                    new ParameterizedTypeReference<Map<String, Object>>() {}
+                    new ParameterizedTypeReference<>() {}
             );
 
             if (response.getStatusCode().is2xxSuccessful()) {
@@ -53,7 +53,6 @@ public class SalesforceConnection implements IntegrationConnection {
             return false;
 
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }
