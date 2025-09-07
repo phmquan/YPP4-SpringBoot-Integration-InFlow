@@ -1,6 +1,7 @@
 package com.ypp.integrationframework.integrationplatform.salesforce.connection;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -20,8 +21,6 @@ public class SalesforceConnection implements IntegrationConnection {
     private String accessToken;
     private String instanceUrl;
 
-
-
     @Override
     public boolean connect() {
         try {
@@ -36,18 +35,20 @@ public class SalesforceConnection implements IntegrationConnection {
 
             HttpEntity<String> request = new HttpEntity<>(body, headers);
 
-            ResponseEntity<Map> response = restTemplate.exchange(
+            ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
                     authUrl,
                     HttpMethod.POST,
                     request,
-                    Map.class
+                    new ParameterizedTypeReference<Map<String, Object>>() {}
             );
 
-            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+            if (response.getStatusCode().is2xxSuccessful()) {
                 Map<String, Object> tokenResponse = response.getBody();
-                this.accessToken = (String) tokenResponse.get("access_token");
-                this.instanceUrl = (String) tokenResponse.get("instance_url");
-                return true;
+                if (tokenResponse != null) {
+                    this.accessToken = (String) tokenResponse.get("access_token");
+                    this.instanceUrl = (String) tokenResponse.get("instance_url");
+                    return true;
+                }
             }
             return false;
 
@@ -57,10 +58,6 @@ public class SalesforceConnection implements IntegrationConnection {
         }
     }
 
-    @Override
-    public boolean validate() {
-        return accessToken != null && !accessToken.isEmpty();
-    }
 
     @Override
     public String getAccessToken() {
