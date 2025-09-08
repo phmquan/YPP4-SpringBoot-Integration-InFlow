@@ -23,6 +23,7 @@ public class SalesforceConnection implements IntegrationConnection {
 
     /***
      * connect to salesforce with OAuth 2.0 through connected app
+     * test
      */
     @Override
     public boolean connect() {

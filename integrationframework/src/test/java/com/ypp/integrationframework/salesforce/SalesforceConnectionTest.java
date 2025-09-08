@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class SalesforceConnectionTest {
+class SalesforceConnectionTest {
     @Autowired
     private SalesforceConnection connection;
 
