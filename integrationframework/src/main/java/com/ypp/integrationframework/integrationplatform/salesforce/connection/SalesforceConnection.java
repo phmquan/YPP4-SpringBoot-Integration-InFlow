@@ -5,7 +5,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import java.util.*;
+
+import java.util.Map;
 
 @Component
 public class SalesforceConnection implements IntegrationConnection {
@@ -30,8 +31,8 @@ public class SalesforceConnection implements IntegrationConnection {
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
             String body = "grant_type=client_credentials" +
-                    "&client_id=" + clientId +
-                    "&client_secret=" + clientSecret;
+                          "&client_id=" + clientId +
+                          "&client_secret=" + clientSecret;
 
             HttpEntity<String> request = new HttpEntity<>(body, headers);
 
@@ -39,7 +40,8 @@ public class SalesforceConnection implements IntegrationConnection {
                     authUrl,
                     HttpMethod.POST,
                     request,
-                    new ParameterizedTypeReference<>() {}
+                    new ParameterizedTypeReference<>() {
+                    }
             );
 
             if (response.getStatusCode().is2xxSuccessful()) {
